@@ -1,0 +1,87 @@
+@startuml
+'mapa nave arma balas asteroide vector
+
+class Ship{
+    - position: Position
+    - vector: Vector
+    - speed: Speed
+    - weapon: Weapon
+    - health: Health
+    - damage: Damage
+    + move(Action): Ship
+    + shoot()
+}
+'el move dependiendo de la acción que le paso sabe como reaccionar
+
+enum Action{
+    + ACCELERATE
+    + SLOWDOWN
+    + LEFT_ROTATION
+    + RIGHT_ROTATION
+}
+
+class Map{
+
+}
+
+class Damage{
+    - value: int
+}
+
+abstract class Collidable{
+    + Collidable(Health health, Damage damage, Speed speed)
+}
+
+class GameEngine{
+    '+ collision() no hace falta que lo implementemos ahora
+    + assignPoints(Ship ship): double
+}
+
+class Health{
+    - value: int
+    + reduce(int value): Health
+}
+
+class Position{
+    - x: int
+    - y: int
+}
+
+class Vector{
+    - x: int
+    - y: int
+}
+
+class Speed{}
+
+class Move{}
+
+class Asteroid{
+    - position: Position
+    - vector: Vector
+    - speed: Speed
+    - health: Health
+    - damage: Damage
+    - size: Integer
+        ' el damage depende del tama;o del asteroid
+    + move(): Asteroid
+}
+
+class Weapon{
+    - bullet: Bullet
+}
+
+class Bullet{
+    - position: Position
+    - vector: Vector
+    - speed: Speed
+    - damage: Damage
+    ' el damage depende del tama;o de la bullet
+    + move(Action): Bullet
+}
+
+Collidable --> Asteroid
+Collidable --> Ship
+Collidable --> Bullet
+
+@enduml
